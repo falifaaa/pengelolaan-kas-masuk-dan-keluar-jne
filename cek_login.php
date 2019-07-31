@@ -1,0 +1,81 @@
+<?php
+error_reporting(0);
+
+include "../config/koneksi.php";
+$pass=md5($_POST[pass]);
+
+$login=mysql_query("SELECT * FROM users WHERE username='$_POST[username]' AND password='$pass'");
+$ketemu=mysql_num_rows($login);
+
+
+// Apabila username dan password ditemukan
+if ($ketemu > 0){
+  $r=mysql_fetch_array($login);
+  if($r[id_akses]==1){ 
+
+    session_start();
+  
+  // inisialisasi session /////////
+  
+  ("username");
+  ("password");
+  ("status");
+  ("id_akses");
+
+  $_SESSION[username]     = $r[username];
+  $_SESSION[password]     = $r[password];
+  $_SESSION[status]       = $r[status];
+  $_SESSION[id_akses]     = $r[id_akses];
+  
+  
+  header('location:home.php');
+}
+ elseif ($r[id_akses]==2) {
+  session_start();
+  ("username");
+  ("password");
+  ("status");
+  ("id_akses");
+
+  $_SESSION[username]     = $r[username];
+  $_SESSION[password]     = $r[password];
+  $_SESSION[status]       = $r[status];
+  $_SESSION[id_akses]     = $r[id_akses];
+  
+  
+  header('location:../pimpinan/page/home.php');
+
+ }elseif($r[id_akses]==3){ 
+
+    session_start();
+  
+  // inisialisasi session /////////
+  
+  ("username");
+  ("password");
+  ("status");
+  ("id_akses");
+
+  $_SESSION[username]     = $r[username];
+  $_SESSION[password]     = $r[password];
+  $_SESSION[status]       = $r[status];
+  $_SESSION[id_akses]     = $r[id_akses];
+  
+  
+  header('location:../keuangan/page/home.php');
+}else{
+  echo "<SCRIPT language=Javascript>
+  alert('Login Anda Gagal,  username dan password tidak valid. Silahkan Hubungi Admin')
+  </script>";
+  echo "
+  <meta http-equiv='refresh' content='0; url=../index.php'/>";
+}
+}
+else{
+  echo "<SCRIPT language=Javascript>
+  alert('Login Anda Gagal,  username dan password tidak valid. Silahkan Hubungi Admin')
+  </script>";
+  echo "
+  <meta http-equiv='refresh' content='0; url=../index.php'/>";
+}
+?>
